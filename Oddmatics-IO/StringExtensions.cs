@@ -12,8 +12,23 @@ using System;
 
 namespace Oddmatics.Util.IO
 {
+    /// <summary>
+    /// Provides various extension methods for strings.
+    /// </summary>
     public static class StringFunction
     {
+        /// <summary>
+        /// Checks whether strings equal each other, ignoring varying case.
+        /// </summary>
+        /// <param name="text">The subject string.</param>
+        /// <param name="comparison">The string to compare to.</param>
+        /// <returns>Whether or not the strings match, ignoring case.</returns>
+        public static bool EqualsIgnoreCase(this string text, string comparison)
+        {
+            return text.Equals(comparison, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+
         /// <summary>
         /// Attempts to split a string by a pattern on its first occurrence.
         /// </summary>
