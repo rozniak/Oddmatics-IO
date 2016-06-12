@@ -22,16 +22,18 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="s">The string to convert.</param>
         /// <param name="maintainValue">Whether or not to maintain the original value of the output variable if the conversion fails.</param>
-        /// <param name="output">Reference to the output variable.</param>
-        public static void ToBool(string s, bool maintainValue, ref bool output)
+        /// <param name="source">The source value of the variable being set.</param>
+        public static bool ToBool(string s, bool maintainValue, bool source = false)
         {
             bool newValue;
             bool conversionSuccess = bool.TryParse(s, out newValue);
 
             if (conversionSuccess)
-                output = newValue;
-            else if (!maintainValue)
-                output = false;
+                return newValue;
+            else if (maintainValue)
+                return source;
+            else
+                return false;
         }
 
 
@@ -40,16 +42,18 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="s">The string to convert.</param>
         /// <param name="maintainValue">Whether or not to maintain the original value of the output variable if the conversion fails.</param>
-        /// <param name="output">Reference to the output variable.</param>
-        public static void ToByte(string s, bool maintainValue, ref byte output)
+        /// <param name="source">The source value of the variable being set.</param>
+        public static byte ToByte(string s, bool maintainValue, byte source = 0)
         {
             byte newValue;
             bool conversionSuccess = byte.TryParse(s, out newValue);
 
             if (conversionSuccess)
-                output = newValue;
-            else if (!maintainValue)
-                output = 0;
+                return newValue;
+            else if (maintainValue)
+                return source;
+            else
+                return 0;
         }
 
 
@@ -58,16 +62,18 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="s">The string to convert.</param>
         /// <param name="maintainValue">Whether or not to maintain the original value of the output variable if the conversion fails.</param>
-        /// <param name="output">Reference to the output variable.</param>
-        public static void ToInt(string s, bool maintainValue, ref int output)
+        /// <param name="source">The source value of the variable being set.</param>
+        public static int ToInt(string s, bool maintainValue, int source = 0)
         {
             int newValue;
             bool conversionSuccess = int.TryParse(s, out newValue);
 
             if (conversionSuccess)
-                output = newValue;
-            else if (!maintainValue)
-                output = 0;
+                return newValue;
+            else if (maintainValue)
+                return source;
+            else
+                return 0;
         }
 
 
@@ -76,16 +82,18 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="s">The string to convert.</param>
         /// <param name="maintainValue">Whether or not to maintain the original value of the output variable if the conversion fails.</param>
-        /// <param name="output">Reference to the output variable.</param>
-        public static void ToLong(string s, bool maintainValue, ref long output)
+        /// <param name="source">The source value of the variable being set.</param>
+        public static long ToLong(string s, bool maintainValue, long source = 0)
         {
             long newValue;
             bool conversionSuccess = long.TryParse(s, out newValue);
 
             if (conversionSuccess)
-                output = newValue;
-            else if (!maintainValue)
-                output = 0;
+                return newValue;
+            else if (maintainValue)
+                return source;
+            else
+                return 0;
         }
 
 
@@ -94,16 +102,18 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="s">The string to convert.</param>
         /// <param name="maintainValue">Whether or not to maintain the original value of the output variable if the conversion fails.</param>
-        /// <param name="output">Reference to the output variable.</param>
-        public static void ToSByte(string s, bool maintainValue, ref sbyte output)
+        /// <param name="source">The source value of the variable being set.</param>
+        public static sbyte ToSByte(string s, bool maintainValue, sbyte source = 0)
         {
             sbyte newValue;
             bool conversionSuccess = sbyte.TryParse(s, out newValue);
 
             if (conversionSuccess)
-                output = newValue;
-            else if (!maintainValue)
-                output = 0;
+                return newValue;
+            else if (maintainValue)
+                return source;
+            else
+                return 0;
         }
 
 
@@ -112,16 +122,18 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="s">The string to convert.</param>
         /// <param name="maintainValue">Whether or not to maintain the original value of the output variable if the conversion fails.</param>
-        /// <param name="output">Reference to the output variable.</param>
-        public static void ToShort(string s, bool maintainValue, ref short output)
+        /// <param name="source">The source value of the variable being set.</param>
+        public static short ToShort(string s, bool maintainValue, short source = 0)
         {
             short newValue;
             bool conversionSuccess = short.TryParse(s, out newValue);
 
             if (conversionSuccess)
-                output = newValue;
-            else if (!maintainValue)
-                output = 0;
+                return newValue;
+            else if (maintainValue)
+                return source;
+            else
+                return 0;
         }
 
 
@@ -130,16 +142,18 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="s">The string to convert.</param>
         /// <param name="maintainValue">Whether or not to maintain the original value of the output variable if the conversion fails.</param>
-        /// <param name="output">Reference to the output variable.</param>
-        public static void ToUInt(string s, bool maintainValue, ref uint output)
+        /// <param name="source">The source value of the variable being set.</param>
+        public static uint ToUInt(string s, bool maintainValue, uint source = 0)
         {
             uint newValue;
             bool conversionSuccess = uint.TryParse(s, out newValue);
 
             if (conversionSuccess)
-                output = newValue;
-            else if (!maintainValue)
-                output = 0;
+                return newValue;
+            else if (maintainValue)
+                return source;
+            else
+                return 0;
         }
 
         /// <summary>
@@ -147,16 +161,18 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="s">The string to convert.</param>
         /// <param name="maintainValue">Whether or not to maintain the original value of the output variable if the conversion fails.</param>
-        /// <param name="output">Reference to the output variable.</param>
-        public static void ToULong(string s, bool maintainValue, ref ulong output)
+        /// <param name="source">The source value of the variable being set.</param>
+        public static ulong ToULong(string s, bool maintainValue, ulong source = 0)
         {
             ulong newValue;
             bool conversionSuccess = ulong.TryParse(s, out newValue);
 
             if (conversionSuccess)
-                output = newValue;
-            else if (!maintainValue)
-                output = 0;
+                return newValue;
+            else if (maintainValue)
+                return source;
+            else
+                return 0;
         }
 
 
@@ -165,16 +181,18 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="s">The string to convert.</param>
         /// <param name="maintainValue">Whether or not to maintain the original value of the output variable if the conversion fails.</param>
-        /// <param name="output">Reference to the output variable.</param>
-        public static void ToUShort(string s, bool maintainValue, ref ushort output)
+        /// <param name="source">The source value of the variable being set.</param>
+        public static ushort ToUShort(string s, bool maintainValue, ushort source = 0)
         {
             ushort newValue;
             bool conversionSuccess = ushort.TryParse(s, out newValue);
 
             if (conversionSuccess)
-                output = newValue;
-            else if (!maintainValue)
-                output = 0;
+                return newValue;
+            else if (maintainValue)
+                return source;
+            else
+                return 0;
         }
     }
 }
