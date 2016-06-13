@@ -15,7 +15,7 @@ namespace Oddmatics.Util.IO
     /// <summary>
     /// Provides various extension methods for strings.
     /// </summary>
-    public static class StringFunction
+    public static class StringExtensions
     {
         /// <summary>
         /// Checks whether strings equal each other, ignoring varying case.
@@ -32,8 +32,8 @@ namespace Oddmatics.Util.IO
         /// <summary>
         /// Attempts to split a string by a pattern on its first occurrence.
         /// </summary>
-        /// <param name="pattern">The pattern to split the string by.</param>
         /// <param name="text">The string to split.</param>
+        /// <param name="pattern">The pattern to split the string by.</param>
         /// <returns>The split string at the first occurrence of the pattern, if pattern doesn't exit, returns two empty strings.</returns>
         public static string[] SplitFirstInstance(this string text, string pattern)
         {

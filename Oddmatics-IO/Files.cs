@@ -181,7 +181,7 @@ namespace Oddmatics.Util.IO
                 {
                     if (!line.StartsWith("#")) // Ignore comments
                     {
-                        string[] resultingSplit = StringFunction.SplitFirstInstance(":", line);
+                        string[] resultingSplit = line.SplitFirstInstance(":");
 
                         if (resultingSplit[0] != "" && resultingSplit[1] != "") // Check that this line is a valid property
                         {
