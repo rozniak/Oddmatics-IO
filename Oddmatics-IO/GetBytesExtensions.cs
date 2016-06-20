@@ -105,10 +105,10 @@ namespace Oddmatics.Util.IO
 
             var data = new List<byte>();
 
-            if (bytesForLength == 1 && subject.Length < 256)
-                data.Add((byte)subject.Length);
-            else if (bytesForLength == 2 && subject.Length < ushort.MaxValue)
-                data.AddRange(((ushort)subject.Length).GetBytes());
+            if (bytesForLength == 1 && subject.Length < 127)
+                data.Add((byte)(subject.Length * 2));
+            else if (bytesForLength == 2 && subject.Length < (ushort.MaxValue / 2) - 1)
+                data.AddRange(((ushort)(subject.Length * 2)).GetBytes());
             else
                 throw new ArgumentException("GetBytesExtensions.GetBytesByLength: subject too long for length encoding.");
 
