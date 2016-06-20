@@ -284,7 +284,7 @@ namespace Oddmatics.Util.IO
 
             if (currentIndex <= data.Count - 2)
             {
-                conversion = (ushort)((data[currentIndex] << 8) + data[currentIndex + 2]);
+                conversion = (ushort)((data[currentIndex] << 8) + data[currentIndex + 1]);
                 currentIndex += 2;
             }
 
