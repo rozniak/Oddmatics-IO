@@ -10,6 +10,7 @@
 
 using System.Collections.Generic;
 using System.Text;
+using System;
 
 namespace Oddmatics.Util.IO
 {
@@ -156,7 +157,7 @@ namespace Oddmatics.Util.IO
 
 
         /// <summary>
-        /// Reads the next set of bytes into a string.
+        /// Reads the next set of bytes into a UTF16 string.
         /// </summary>
         /// <param name="data">The byte data to read from.</param>
         /// <param name="currentIndex">The current index pointer.</param>
@@ -164,7 +165,7 @@ namespace Oddmatics.Util.IO
         /// <returns>Returns the next set of bytes in the data as a string, terminated by a null character or end of data.</returns>
         public static string NextString(IList<byte> data, ref int currentIndex, bool includeNullCharacter = false)
         {
-            string conversion = string.Empty;
+            string conversion = String.Empty;
             bool endOfString = false; // Set this to true when a null character is discovered
 
             do
@@ -187,6 +188,39 @@ namespace Oddmatics.Util.IO
             } while (currentIndex < data.Count - 2 && !endOfString);
 
             return conversion;
+        }
+
+
+        /// <summary>
+        /// Reads the next set of bytes into a UTF16 string, using data that starts with the string's length.
+        /// </summary>
+        /// <param name="data">The byte data to read from.</param>
+        /// <param name="currentIndex">The current index pointer.</param>
+        /// <param name="bytesForLength">Set to 1 if the length of the string is recorded as a byte, 2 if it's recorded as a ushort.</param>
+        /// <returns>Returns the next set of bytes in the data as a string, determined by the length.</returns>
+        public static string NextStringByLength(IList<byte> data, ref int currentIndex, byte bytesForLength)
+        {
+            if (bytesForLength != 1 && bytesForLength != 2)
+                throw new ArgumentException("ByteParse.NextStringUTF16ByLength: bytesForLength must be either 1 or 2.");
+
+            ushort length = bytesForLength == 1 ? NextByte(data, ref currentIndex) : NextUShort(data, ref currentIndex);
+            var toConvert = new List<byte>();
+            int endIndex = currentIndex + length;
+
+            try
+            {
+                while (currentIndex < endIndex)
+                {
+                    toConvert.Add(data[currentIndex]);
+                    currentIndex++;
+                }
+
+                return UnicodeEncoding.Unicode.GetString(toConvert.ToArray());
+            }
+            catch (IndexOutOfRangeException indexEx)
+            {
+                return String.Empty;
+            }
         }
 
 
