@@ -22,10 +22,26 @@ namespace Oddmatics.Util.IO
         /// </summary>
         /// <param name="text">The subject string.</param>
         /// <param name="comparison">The string to compare to.</param>
-        /// <returns>Whether or not the strings match, ignoring case.</returns>
+        /// <returns>True if the strings match, regardless of casing.</returns>
         public static bool EqualsIgnoreCase(this string text, string comparison)
         {
             return text.Equals(comparison, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+
+        /// <summary>
+        /// Checks whether a string's length is within a given range.
+        /// </summary>
+        /// <param name="text">The subject string.</param>
+        /// <param name="lowBound">The inclusive lower bound.</param>
+        /// <param name="highBound">The exclusive upper bound.</param>
+        /// <returns>True if the string's length is within the given boundaries.</returns>
+        public static bool LengthWithinRange(this string text, int lowBound, int highBound)
+        {
+            if (text.Length >= lowBound && text.Length < highBound)
+                return true;
+
+            return false;
         }
 
 
