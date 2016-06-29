@@ -82,37 +82,43 @@ namespace Oddmatics.Util.IO
         /// Gets the subject string (UTF16 format) as a byte array with a terminating character.
         /// </summary>
         /// <param name="subject">The subject string.</param>
+        /// <param name="encoding">The Encoding to use.</param>
         /// <returns>A byte array containing the results of encoding the specified string with a null terminator appended.</returns>
-        public static byte[] GetBytesNullTerminated(this string subject)
+        public static byte[] GetBytesNullTerminated(this string subject, Encoding encoding)
         {
-            return UnicodeEncoding.Unicode.GetBytes(subject + '\0');
+            return encoding.GetBytes(subject + '\0');
         }
 
 
         /// <summary>
-        /// Gets the subject string (UTF16 format) as a byte array starting with the string's length.
+        /// Gets the subject string as a byte array starting with the string's length.
         /// </summary>
         /// <param name="subject">The subject string.</param>
         /// <param name="bytesForLength">Set to 1 if the length of the string is to be recorded as a byte, 2 to record as a ushort.</param>
-        /// <returns>A byte array containing the results of encoding the specified string with a null terminator appended.</returns>
-        public static byte[] GetBytesByLength(this string subject, byte bytesForLength)
+        /// <param name="encoding">The Encoding to use.</param>
+        /// <returns>A byte array containing the results of encoding with a length preamble.</returns>
+        public static byte[] GetBytesByLength(this string subject, byte bytesForLength, Encoding encoding)
         {
             if (bytesForLength != 1 && bytesForLength != 2)
                 throw new ArgumentException("GetBytesExtensions.GetBytesByLength: bytesForLength must be either 1 or 2.");
 
+            if (encoding == Encoding.UTF32 || encoding == Encoding.UTF7)
+                throw new ArgumentException("GetBytesExtensions.GetBytesByLength: Unsupported encoding.");
+
             if (subject.Length == 0)
                 return new byte[] { 0 };
 
+            int charSize = encoding == Encoding.Unicode ? 2 : 1;
             var data = new List<byte>();
 
-            if (bytesForLength == 1 && subject.Length < 127)
-                data.Add((byte)(subject.Length * 2));
-            else if (bytesForLength == 2 && subject.Length < (ushort.MaxValue / 2) - 1)
-                data.AddRange(((ushort)(subject.Length * 2)).GetBytes());
+            if (bytesForLength == 1 && subject.Length < (256 / charSize) - 1)
+                data.Add((byte)(subject.Length * charSize));
+            else if (bytesForLength == 2 && subject.Length < (ushort.MaxValue / charSize) - 1)
+                data.AddRange(((ushort)(subject.Length * charSize)).GetBytes());
             else
                 throw new ArgumentException("GetBytesExtensions.GetBytesByLength: subject too long for length encoding.");
 
-            data.AddRange(UnicodeEncoding.Unicode.GetBytes(subject));
+            data.AddRange(encoding.GetBytes(subject));
 
             return data.ToArray();
         }

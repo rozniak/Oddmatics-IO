@@ -157,20 +157,30 @@ namespace Oddmatics.Util.IO
 
 
         /// <summary>
-        /// Reads the next set of bytes into a UTF16 string.
+        /// Reads the next set of bytes into a string.
         /// </summary>
         /// <param name="data">The byte data to read from.</param>
         /// <param name="currentIndex">The current index pointer.</param>
+        /// <param name="encoding">The Encoding to use.</param>
         /// <param name="includeNullCharacter">Whether to include the terminating null character in the converted string or not.</param>
         /// <returns>Returns the next set of bytes in the data as a string, terminated by a null character or end of data.</returns>
-        public static string NextString(IList<byte> data, ref int currentIndex, bool includeNullCharacter = false)
+        public static string NextString(IList<byte> data, ref int currentIndex, Encoding encoding, bool includeNullCharacter = false)
         {
+            if (encoding == Encoding.UTF32 || encoding == Encoding.UTF7)
+                throw new ArgumentException("ByteParse.NextString: Unsupported encoding.");
+
+            int charSize = encoding == Encoding.Unicode ? 2 : 1;
             string conversion = String.Empty;
             bool endOfString = false; // Set this to true when a null character is discovered
 
             do
             {
-                char nextChar = UnicodeEncoding.Unicode.GetString(new byte[] { data[currentIndex], data[currentIndex + 1] })[0];
+                char nextChar = '\0';
+
+                if (charSize == 1)
+                    nextChar = encoding.GetString(new byte[] { data[currentIndex] })[0];
+                else
+                    nextChar = encoding.GetString(new byte[] { data[currentIndex], data[currentIndex + 1] })[0];
 
                 if (nextChar == '\0')
                 {
@@ -180,28 +190,30 @@ namespace Oddmatics.Util.IO
                     endOfString = true;
                 }
                 else
-                {
                     conversion += nextChar;
-                }
 
                 currentIndex += 2;
-            } while (currentIndex < data.Count - 2 && !endOfString);
+            } while (currentIndex < data.Count - charSize && !endOfString);
 
             return conversion;
         }
 
 
         /// <summary>
-        /// Reads the next set of bytes into a UTF16 string, using data that starts with the string's length.
+        /// Reads the next set of bytes into a string, using data that starts with the string's length.
         /// </summary>
         /// <param name="data">The byte data to read from.</param>
         /// <param name="currentIndex">The current index pointer.</param>
         /// <param name="bytesForLength">Set to 1 if the length of the string is recorded as a byte, 2 if it's recorded as a ushort.</param>
+        /// <param name="encoding">The Encoding to use.</param>
         /// <returns>Returns the next set of bytes in the data as a string, determined by the length.</returns>
-        public static string NextStringByLength(IList<byte> data, ref int currentIndex, byte bytesForLength)
+        public static string NextStringByLength(IList<byte> data, ref int currentIndex, byte bytesForLength, Encoding encoding)
         {
             if (bytesForLength != 1 && bytesForLength != 2)
-                throw new ArgumentException("ByteParse.NextStringUTF16ByLength: bytesForLength must be either 1 or 2.");
+                throw new ArgumentException("ByteParse.NextStringByLength: bytesForLength must be either 1 or 2.");
+
+            if (encoding == Encoding.UTF32 || encoding == Encoding.UTF7)
+                throw new ArgumentException("ByteParse.NextStringByLength: Unsupported encoding.");
 
             ushort length = bytesForLength == 1 ? NextByte(data, ref currentIndex) : NextUShort(data, ref currentIndex);
             var toConvert = new List<byte>();
@@ -215,7 +227,7 @@ namespace Oddmatics.Util.IO
                     currentIndex++;
                 }
 
-                return UnicodeEncoding.Unicode.GetString(toConvert.ToArray());
+                return encoding.GetString(toConvert.ToArray());
             }
             catch (IndexOutOfRangeException indexEx)
             {
