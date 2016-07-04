@@ -8,9 +8,11 @@
  * Sharing, editing and general licence term information can be found inside of the "LICENCE.MD" file that should be located in the root of this project's directory structure.
  */
 
-using System.Collections.Generic;
-using System.Text;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
 
 namespace Oddmatics.Util.IO
 {
@@ -68,6 +70,32 @@ namespace Oddmatics.Util.IO
             }
 
             return conversion;
+        }
+
+
+        /// <summary>
+        /// Reads the next 4 bytes into an IPv4 address.
+        /// </summary>
+        /// <param name="data">The byte data to read from.</param>
+        /// <param name="currentIndex">The current index pointer.</param>
+        /// <returns>Returns the next 4 bytes in the data as an IPv4 address.</returns>
+        public static IPAddress NextIPv4Address(IList<byte> data, ref int currentIndex)
+        {
+            IPAddress ip = IPAddress.Any;
+
+            if (currentIndex <= data.Count - 4)
+            {
+                try
+                {
+                    ip = new IPAddress(data.Skip(currentIndex + 1).Take(4).ToArray());
+                }
+                finally
+                {
+                    currentIndex += 4;
+                }
+            }
+
+            return ip;
         }
 
 
