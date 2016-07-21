@@ -37,14 +37,7 @@ namespace Oddmatics.Util.IO
         /// <returns>A byte array representing the subject int.</returns>
         public static byte[] GetBytes(this int subject)
         {
-            var data = new List<byte>();
-
-            for (int i = 0; i <= 3; i++)
-            {
-                data.Add((byte)(subject >> (24 - i * 8)));
-            }
-
-            return data.ToArray();
+            return BitConverter.GetBytes(subject);
         }
 
 
@@ -55,14 +48,7 @@ namespace Oddmatics.Util.IO
         /// <returns>A byte array representing the subject long.</returns>
         public static byte[] GetBytes(this long subject)
         {
-            var data = new List<byte>();
-
-            for (int i = 0; i <= 7; i++)
-            {
-                data.Add((byte)(subject >> (56 - i * 8)));
-            }
-
-            return data.ToArray();
+            return BitConverter.GetBytes(subject);
         }
 
 
@@ -73,8 +59,7 @@ namespace Oddmatics.Util.IO
         /// <returns>A byte array representing the subject short.</returns>
         public static byte[] GetBytes(this short subject)
         {
-            return new byte[] { (byte)(subject >> 8),
-                (byte)(subject & 255) };
+            return BitConverter.GetBytes(subject);
         }
 
 
@@ -131,14 +116,7 @@ namespace Oddmatics.Util.IO
         /// <returns>A byte array representing the subject uint.</returns>
         public static byte[] GetBytes(this uint subject)
         {
-            var data = new List<byte>();
-
-            for (int i = 0; i <= 3; i++)
-            {
-                data.Add((byte)(subject >> (24 - i * 8)));
-            }
-
-            return data.ToArray();
+            return BitConverter.GetBytes(subject);
         }
 
 
@@ -149,14 +127,7 @@ namespace Oddmatics.Util.IO
         /// <returns>A byte array representing the subject ulong.</returns>
         public static byte[] GetBytes(this ulong subject)
         {
-            var data = new List<byte>();
-
-            for (int i = 0; i <= 7; i++)
-            {
-                data.Add((byte)(subject >> (56 - i * 8)));
-            }
-
-            return data.ToArray();
+            return BitConverter.GetBytes(subject);
         }
 
 
@@ -167,8 +138,7 @@ namespace Oddmatics.Util.IO
         /// <returns>A byte array representing the subject ushort.</returns>
         public static byte[] GetBytes(this ushort subject)
         {
-            return new byte[] { (byte)(subject >> 8),
-                (byte)(subject & 255) };
+            return BitConverter.GetBytes(subject);
         }
     }
 }

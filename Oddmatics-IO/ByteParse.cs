@@ -111,11 +111,7 @@ namespace Oddmatics.Util.IO
 
             if (currentIndex <= data.Count - 4)
             {
-                for (int i = 0; i <= 3; i++)
-                {
-                    conversion += (int)(data[currentIndex + i] << (24 - (8 * i)));
-                }
-
+                conversion = BitConverter.ToInt32(data.ToArray(), currentIndex);
                 currentIndex += 4;
             }
 
@@ -135,11 +131,7 @@ namespace Oddmatics.Util.IO
 
             if (currentIndex <= data.Count - 8)
             {
-                for (int i = 0; i <= 7; i++)
-                {
-                    conversion += (long)(data[currentIndex + i] << (56 - (8 * i)));
-                }
-
+                conversion = BitConverter.ToInt64(data.ToArray(), currentIndex);
                 currentIndex += 8;
             }
 
@@ -176,7 +168,7 @@ namespace Oddmatics.Util.IO
 
             if (currentIndex <= data.Count - 2)
             {
-                conversion = (short)((data[currentIndex] << 8) + data[currentIndex + 1]);
+                conversion = BitConverter.ToInt16(data.ToArray(), currentIndex);
                 currentIndex += 2;
             }
 
@@ -276,11 +268,7 @@ namespace Oddmatics.Util.IO
 
             if (currentIndex <= data.Count - 4)
             {
-                for (int i = 0; i <= 3; i++)
-                {
-                    conversion += (uint)(data[currentIndex + i] << (24 - (8 * i)));
-                }
-
+                conversion = BitConverter.ToUInt32(data.ToArray(), currentIndex);
                 currentIndex += 4;
             }
 
@@ -300,11 +288,7 @@ namespace Oddmatics.Util.IO
 
             if (currentIndex <= data.Count - 8)
             {
-                for (int i = 0; i <= 7; i++)
-                {
-                    conversion += (ulong)(data[currentIndex + i] << (56 - (8 * i)));
-                }
-
+                conversion = BitConverter.ToUInt64(data.ToArray(), currentIndex);
                 currentIndex += 8;
             }
 
@@ -324,7 +308,7 @@ namespace Oddmatics.Util.IO
 
             if (currentIndex <= data.Count - 2)
             {
-                conversion = (ushort)((data[currentIndex] << 8) + data[currentIndex + 1]);
+                conversion = BitConverter.ToUInt16(data.ToArray(), currentIndex);
                 currentIndex += 2;
             }
 
