@@ -87,7 +87,7 @@ namespace Oddmatics.Util.IO
             {
                 try
                 {
-                    ip = new IPAddress(data.Skip(currentIndex + 1).Take(4).ToArray());
+                    ip = new IPAddress(data.Skip(currentIndex).Take(4).ToArray());
                 }
                 finally
                 {
