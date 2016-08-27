@@ -164,20 +164,19 @@ namespace Oddmatics.Util.IO
             }
         }
 
+
         /// <summary>
         /// Reads an INI file into a dictionary for easy reading
         /// </summary>
-        /// <param name="filepath">The file path of the INI file to read.</param>
+        /// <param name="file">The contents of the file to read.</param>
         /// <returns>A dictionary containing the variable names as keys, alongside their values.</returns>
-        public static Dictionary<string, string> ReadINIToDictionary(string filepath)
+        public static Dictionary<string, string> ReadINIToDictionary(IList<string> file)
         {
-            IList<string> iniFile = GetTextFile(filepath);
-
-            if (iniFile != null)
+            if (file != null)
             {
                 var finalDictionary = new Dictionary<string, string>();
 
-                foreach (string line in iniFile)
+                foreach (string line in file)
                 {
                     if (!line.StartsWith("#")) // Ignore comments
                     {
@@ -197,6 +196,16 @@ namespace Oddmatics.Util.IO
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Reads an INI file into a dictionary for easy reading
+        /// </summary>
+        /// <param name="filepath">The file path of the INI file to read.</param>
+        /// <returns>A dictionary containing the variable names as keys, alongside their values.</returns>
+        public static Dictionary<string, string> ReadINIToDictionary(string filepath)
+        {
+            return ReadINIToDictionary(GetTextFile(filepath));
         }
     }
 }
