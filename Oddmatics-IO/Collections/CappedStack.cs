@@ -20,14 +20,20 @@ namespace Oddmatics.Util.Collections
     public class CappedStack<T>
     {
         /// <summary>
-        /// Gets or sets the List object used internally.
+        /// Gets the amount of items inside the stack.
         /// </summary>
-        private List<T> InternalList;
+        public int Count { get { return InternalList.Count; } }
 
         /// <summary>
         /// Gets the max capacity of this CappedStack.
         /// </summary>
         public int Size { get; private set; }
+
+
+        /// <summary>
+        /// Gets or sets the List object used internally.
+        /// </summary>
+        private List<T> InternalList;
 
 
         /// <summary>
@@ -41,6 +47,28 @@ namespace Oddmatics.Util.Collections
 
             Size = size;
             InternalList = new List<T>();
+        }
+
+
+        /// <summary>
+        /// Gets the element at the specified index.
+        /// </summary>
+        /// <param name="index">The zero-based index of the element to get.</param>
+        /// <returns>The element at the specified index.</returns>
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index > Size - 1)
+                    throw new IndexOutOfRangeException();
+                else
+                {
+                    if (index > InternalList.Count - 1)
+                        return default(T);
+
+                    return InternalList[index];
+                }
+            }
         }
 
 
