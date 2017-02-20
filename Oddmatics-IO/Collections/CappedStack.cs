@@ -66,7 +66,7 @@ namespace Oddmatics.Util.Collections
                     if (index > InternalList.Count - 1)
                         return default(T);
 
-                    return InternalList[index];
+                    return InternalList[InternalList.Count - 1 - index];
                 }
             }
         }
