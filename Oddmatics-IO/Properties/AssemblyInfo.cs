@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Oddmatics IO Utilities Library")]
+[assembly: AssemblyTitle("Oddmatics Utilities Library")]
 [assembly: AssemblyDescription("Library containing common IO functions for Oddmatics projects.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Oddmatics")]
