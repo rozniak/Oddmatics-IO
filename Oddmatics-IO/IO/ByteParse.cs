@@ -100,6 +100,32 @@ namespace Oddmatics.Util.IO
 
 
         /// <summary>
+        /// Reads the next 16 bytes into an IPv6 address.
+        /// </summary>
+        /// <param name="data">The byte data to read from.</param>
+        /// <param name="currentIndex">The current index pointer.</param>
+        /// <returns>Returns the next 16 bytes in the data as an IPv6 address.</returns>
+        public static IPAddress NextIPv6Address(IList<byte> data, ref int currentIndex)
+        {
+            IPAddress ip = IPAddress.Any;
+
+            if (currentIndex <= data.Count - 16)
+            {
+                try
+                {
+                    ip = new IPAddress(data.Skip(currentIndex).Take(16).ToArray());
+                }
+                finally
+                {
+                    currentIndex += 16;
+                }
+            }
+
+            return ip;
+        }
+
+
+        /// <summary>
         /// Reads the next 4 bytes into a signed 32-bit integer value.
         /// </summary>
         /// <param name="data">The byte data to read from.</param>
