@@ -45,6 +45,7 @@
     <Compile Include="Collections\CappedStack.cs" />
     <Compile Include="IO\ByteParse.cs" />
     <Compile Include="IO\GetBytesExtensions.cs" />
+    <Compile Include="IO\StreamedFile.cs" />
     <Compile Include="IO\StringConversion.cs" />
     <Compile Include="IO\Files.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
