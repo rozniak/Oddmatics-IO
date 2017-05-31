@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\CappedStack.cs" />
+    <Compile Include="Collections\KeyValueEventCollection.cs" />
+    <Compile Include="Events\ValueChangedEvent.cs" />
+    <Compile Include="Events\ICancellable.cs" />
     <Compile Include="IO\ByteParse.cs" />
     <Compile Include="IO\GetBytesExtensions.cs" />
     <Compile Include="IO\StreamedFile.cs" />

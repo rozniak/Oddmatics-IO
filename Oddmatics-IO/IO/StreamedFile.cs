@@ -17,12 +17,16 @@ namespace Oddmatics.Util.IO
     public class StreamedFile
     {
         /// <summary>
-        /// The FileStream object encapsulating the file being read, this field is read-only.
+        /// Gets or sets the FileStream object encapsulating the file being read.
+        /// 
+        /// This field is read-only.
         /// </summary>
         private readonly FileStream Stream;
 
         /// <summary>
-        /// The size of the file being read, this field is read-only.
+        /// Gets or sets the size of the file being read.
+        /// 
+        /// This field is read-only.
         /// </summary>
         public readonly long Size;
 
@@ -30,10 +34,10 @@ namespace Oddmatics.Util.IO
         /// <summary>
         /// Initializes a new instance of the StreamedFile class with the specified path.
         /// </summary>
-        /// <param name="filename">A path for the file in which to open a read stream to.</param>
-        public StreamedFile(string filename)
+        /// <param name="filepath">A path for the file in which to open a read stream to.</param>
+        public StreamedFile(string filepath)
         {
-            Stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.None);
+            Stream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.None);
             Size = Stream.Length;
         }
 
