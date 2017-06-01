@@ -210,38 +210,31 @@ namespace Oddmatics.Util.IO
         /// <param name="encoding">The Encoding to use.</param>
         /// <param name="includeNullCharacter">Whether to include the terminating null character in the converted string or not.</param>
         /// <returns>Returns the next set of bytes in the data as a string, terminated by a null character or end of data.</returns>
+        /// <remarks>
+        /// Source for this function is from:
+        /// https://stackoverflow.com/questions/11671826/how-do-you-read-utf-8-characters-from-an-infinite-byte-stream-c-sharp
+        /// </remarks>
         public static string NextString(IList<byte> data, ref int currentIndex, Encoding encoding, bool includeNullCharacter = false)
         {
-            if (encoding == Encoding.UTF32 || encoding == Encoding.UTF7)
-                throw new ArgumentException("ByteParse.NextString: Unsupported encoding.");
+            Decoder decoder = encoding.GetDecoder();
+            bool endOfString = false;
+            var nextChar = new char[1];
+            var sb = new StringBuilder();
 
-            int charSize = encoding == Encoding.Unicode ? 2 : 1;
-            string conversion = String.Empty;
-            bool endOfString = false; // Set this to true when a null character is discovered
-
-            do
+            while (currentIndex < data.Count && !endOfString)
             {
-                char nextChar = '\0';
+                var charCount = decoder.GetChars(new byte[] { data[currentIndex++] }, 0, 1, nextChar, 0);
 
-                if (charSize == 1)
-                    nextChar = encoding.GetString(new byte[] { data[currentIndex] })[0];
-                else
-                    nextChar = encoding.GetString(new byte[] { data[currentIndex], data[currentIndex + 1] })[0];
+                if (charCount == 0)
+                    continue;
 
-                if (nextChar == '\0')
-                {
-                    if (includeNullCharacter)
-                        conversion += nextChar;
+                sb.Append(nextChar);
 
+                if (nextChar[0] == '\0')
                     endOfString = true;
-                }
-                else
-                    conversion += nextChar;
+            }
 
-                currentIndex += 2;
-            } while (currentIndex < data.Count - charSize && !endOfString);
-
-            return conversion;
+            return sb.ToString();
         }
 
 
