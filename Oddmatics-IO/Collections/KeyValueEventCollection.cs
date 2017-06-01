@@ -88,6 +88,15 @@ namespace Oddmatics.Util.Collections
         }
 
         /// <summary>
+        /// Creates an exact copy of the underlying Dictionary object.
+        /// </summary>
+        /// <returns>An exact copy of the underlying Dictionary object.</returns>
+        public Dictionary<string, string> ExposeSettings()
+        {
+            return new Dictionary<string, string>(Settings);
+        }
+
+        /// <summary>
         /// Removes the specified key if it exists in the collection.
         /// </summary>
         /// <param name="key">The key to unset.</param>
