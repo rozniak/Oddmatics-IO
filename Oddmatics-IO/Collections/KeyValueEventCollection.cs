@@ -67,6 +67,15 @@ namespace Oddmatics.Util.Collections
 
 
         /// <summary>
+        /// Initializes a new instance of the KeyValueEventCollection class.
+        /// </summary>
+        public KeyValueEventCollection()
+        {
+            Settings = new Dictionary<string, string>();
+        }
+
+
+        /// <summary>
         /// Ensures that the specified key is set. If it does not exist, it will be created and assigned a default String.Empty value.
         /// </summary>
         /// <param name="key">The key to ensure is set.</param>
