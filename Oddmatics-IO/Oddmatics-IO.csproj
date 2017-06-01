@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\CappedStack.cs" />
+    <Compile Include="Collections\IListExtensions.cs" />
     <Compile Include="Collections\KeyValueEventCollection.cs" />
     <Compile Include="Events\ValueChangedEvent.cs" />
     <Compile Include="Events\ICancellable.cs" />
