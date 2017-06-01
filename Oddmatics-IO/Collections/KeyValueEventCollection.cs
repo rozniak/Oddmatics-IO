@@ -74,6 +74,28 @@ namespace Oddmatics.Util.Collections
             Settings = new Dictionary<string, string>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the KeyValueEventCollection class using a specified source collection.
+        /// </summary>
+        /// <param name="source">The source collection.</param>
+        public KeyValueEventCollection(Dictionary<string, string> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException("KeyValueEventCollection.new: Parameter 'source' cannot be null.");
+
+            Settings = new Dictionary<string, string>();
+
+            foreach (var pair in source)
+            {
+                string lowKey = pair.Key.ToLower();
+
+                if (Settings.ContainsKey(lowKey))
+                    Settings[lowKey] = pair.Value;
+                else
+                    Settings.Add(lowKey, pair.Value);
+            }
+        }
+
 
         /// <summary>
         /// Ensures that the specified key is set. If it does not exist, it will be created and assigned a default String.Empty value.
