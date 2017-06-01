@@ -227,11 +227,18 @@ namespace Oddmatics.Util.IO
 
                 if (charCount == 0)
                     continue;
-
-                sb.Append(nextChar);
+                
+                
 
                 if (nextChar[0] == '\0')
+                {
+                    if (includeNullCharacter)
+                        sb.Append(nextChar);
+
                     endOfString = true;
+                }
+                else
+                    sb.Append(nextChar);
             }
 
             return sb.ToString();
